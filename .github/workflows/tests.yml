@@ -13,12 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install pnpm
+        run: corepack prepare pnpm@latest --activate
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
 
       - name: Packages install

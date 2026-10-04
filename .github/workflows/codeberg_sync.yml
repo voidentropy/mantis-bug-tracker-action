@@ -1,0 +1,21 @@
+name: Sync codeberg repo
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  sync-to-codeberg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync with codeberg repo
+        uses: wei/git-sync@v3
+        with:
+          source_repo: "${{ github.repository }}"
+          source_branch: "refs/heads/*"
+          destination_repo: "https://${{ secrets.CODEBERG_SYNC_TOKEN }}@codeberg.org/${{ github.repository }}.git"
+          destination_branch: "refs/heads/*"
